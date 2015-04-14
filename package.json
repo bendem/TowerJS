@@ -1,0 +1,10 @@
+{
+  "name": "Tower",
+  "version": "0.0.1",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-jshint": "^0.11.1",
+    "grunt-subgrunt": "^0.4.4"
+  }
+}

@@ -1,0 +1,3 @@
+[submodule "JsGameLib"]
+	path = JsGameLib
+	url = git@github.com:bendem/JsGameLib.git
