@@ -58,6 +58,7 @@ module.exports = function(grunt) {
                 undef: true,
                 latedef: true,
                 browser: true,
+                laxbreak: true,
             },
             all: ['dist/built.js']
         },

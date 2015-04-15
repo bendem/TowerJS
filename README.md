@@ -1,6 +1,6 @@
 ## License
 
-Graphics from [lostgarden](http://www.lostgarden.com/) under Creative Commons Attribution 3.0.
+Graphics from [kenney.nl](http://kenney.nl/) ([here](http://opengameart.org/content/tower-defense-assets-isometric)).
 
 This is free and unencumbered software released into the public domain.
 
