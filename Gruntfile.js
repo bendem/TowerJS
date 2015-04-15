@@ -9,15 +9,15 @@ module.exports = function(grunt) {
 
         // Run JsGameLib grunt first
         subgrunt: {
+            options: {
+                npmInstall: false
+            },
             default: {
                 projects: {
                     JsGameLib: 'default',
                 },
             },
             concat: {
-                options: {
-                    npmInstall: false
-                },
                 projects: {
                     JsGameLib: 'concat'
                 }
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: [
-                    'JsGameLib/dist/built.js',
+                    'JsGameLib/dist/*.js',
                     'src/*.js',
                     'app.js'
                 ],
@@ -77,5 +77,5 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask('default', ['subgrunt', 'concat', 'jshint']);
+    grunt.registerTask('default', ['subgrunt:default', 'concat', 'jshint']);
 };
