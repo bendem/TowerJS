@@ -3,13 +3,24 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-subgrunt');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.initConfig({
 
         // Run JsGameLib grunt first
         subgrunt: {
-            projects: {
-                JsGameLib: 'default'
+            default: {
+                projects: {
+                    JsGameLib: 'default',
+                },
+            },
+            concat: {
+                options: {
+                    npmInstall: false
+                },
+                projects: {
+                    JsGameLib: 'concat'
+                }
             }
         },
 
@@ -49,6 +60,19 @@ module.exports = function(grunt) {
                 browser: true,
             },
             all: ['dist/built.js']
+        },
+        watch: {
+            scripts: {
+                files: [
+                    'JsGameLib/src/*.js',
+                    'src/*.js',
+                    'app.js'
+                ],
+                tasks: [
+                    'subgrunt:concat',
+                    'concat'
+                ],
+            },
         },
 
     });
