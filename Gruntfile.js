@@ -56,7 +56,6 @@ module.exports = function(grunt) {
                 freeze: true,
                 futurehostile: true,
                 undef: true,
-                latedef: true,
                 browser: true,
                 laxbreak: true,
             },
