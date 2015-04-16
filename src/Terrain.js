@@ -4,21 +4,17 @@ var Terrain = function(sprite) {
 
 extend(Terrain, Entity, {
     draw: function(ctx) {
-        var x = 0;
-        var y = 0;
+        var part = this.sprite.get('landscape_21');
+        var point = new Point(part.width, part.height);
         var between = false;
-        this.sprite.descriptors.forEach(function(part) {
-            this.sprite.drawPart(ctx, part, new Point(x, y));
-            x += part.width;
-            if(x > 700) {
-                if(!between) {
-                    x = 132 / 2;
-                } else {
-                    x = 0;
-                }
+        for(var i = 0; i < 110; i++) {
+            this.sprite.drawPart(ctx, part, point);
+            point = point.addX(part.width);
+            if(point.x > 900) {
+                point.x = between ? part.width : part.width / 2;
                 between = !between;
-                y += 99 / 2;
+                point = point.addY(part.height / 2.6);
             }
-        }, this);
+        }
     }
 });

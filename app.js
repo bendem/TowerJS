@@ -1,10 +1,14 @@
-var SPRITE_URL = 'assets/sprites/landscape_sheet.png';
+var TERRAIN_SPRITE = 'assets/sprites/landscape_sheet.png';
+var TOWER_SPRITE = 'assets/sprites/towers_grey_sheet.png';
 
+// Game.debug = true;
 var game = new Game();
-game.resourceManager.load(SPRITE_URL);
+game.resourceManager.load(TERRAIN_SPRITE);
+game.resourceManager.load(TOWER_SPRITE);
 game.resourceManager.ready(function() {
-    var landSprite = new Sprite(game.resourceManager.get(SPRITE_URL));
-    landSprite.registerIds([
+    var landSprite = new Sprite(
+        game.resourceManager.get(TERRAIN_SPRITE)
+    ).registerIds([
         {id: 'crystals_1', position: new Point(1720, 198), width: 132, height: 112},
         {id: 'crystals_2', position: new Point(1852, 114), width: 132, height: 121},
         {id: 'crystals_3', position: new Point(0, 297), width: 133, height: 127},
@@ -70,7 +74,68 @@ game.resourceManager.ready(function() {
         {id: 'trees_8', position: new Point(532, 0), width: 133, height: 118},
         {id: 'trees_9', position: new Point(532, 118), width: 133, height: 116}
     ]);
-    // game.register(new Tower(landSprite));
-    game.register(new Terrain(landSprite));
+    var towerSprite = new Sprite(
+        game.resourceManager.get(TOWER_SPRITE)
+    ).registerIds([
+        {id:'tower_00', position: new Point(187, 150), width: 89, height: 100},
+        {id:'tower_01', position: new Point(447, 235), width: 79, height: 72 },
+        {id:'tower_02', position: new Point(684, 72),  width: 79, height: 72 },
+        {id:'tower_03', position: new Point(0,   232), width: 95, height: 76 },
+        {id:'tower_04', position: new Point(0,   156), width: 95, height: 76 },
+        {id:'tower_05', position: new Point(103, 75),  width: 90, height: 75 },
+        {id:'tower_06', position: new Point(103, 0),   width: 90, height: 75 },
+        {id:'tower_07', position: new Point(0,   0),   width: 103, height: 78},
+        {id:'tower_08', position: new Point(526, 217), width: 79, height: 72 },
+        {id:'tower_09', position: new Point(0,   78),  width: 103, height: 78},
+        {id:'tower_10', position: new Point(93,  308), width: 92, height: 75 },
+        {id:'tower_11', position: new Point(685, 286), width: 79, height: 72 },
+        {id:'tower_12', position: new Point(606, 307), width: 79, height: 70 },
+        {id:'tower_13', position: new Point(93,  383), width: 92, height: 75 },
+        {id:'tower_14', position: new Point(95,  156), width: 92, height: 75 },
+        {id:'tower_15', position: new Point(447, 156), width: 79, height: 79 },
+        {id:'tower_16', position: new Point(763, 149), width: 79, height: 72 },
+        {id:'tower_17', position: new Point(763, 79),  width: 79, height: 70 },
+        {id:'tower_18', position: new Point(363, 229), width: 84, height: 73 },
+        {id:'tower_19', position: new Point(95,  231), width: 92, height: 75 },
+        {id:'tower_20', position: new Point(362, 424), width: 86, height: 74 },
+        {id:'tower_21', position: new Point(276, 103), width: 87, height: 82 },
+        {id:'tower_22', position: new Point(684, 214), width: 79, height: 72 },
+        {id:'tower_23', position: new Point(684, 144), width: 79, height: 70 },
+        {id:'tower_24', position: new Point(363, 302), width: 84, height: 73 },
+        {id:'tower_25', position: new Point(610, 0),   width: 79, height: 72 },
+        {id:'tower_26', position: new Point(363, 82),  width: 86, height: 74 },
+        {id:'tower_27', position: new Point(274, 350), width: 89, height: 74 },
+        {id:'tower_28', position: new Point(605, 228), width: 79, height: 79 },
+        {id:'tower_29', position: new Point(605, 149), width: 79, height: 79 },
+        {id:'tower_30', position: new Point(605, 79),  width: 79, height: 70 },
+        {id:'tower_31', position: new Point(363, 156), width: 84, height: 73 },
+        {id:'tower_32', position: new Point(527, 433), width: 79, height: 72 },
+        {id:'tower_33', position: new Point(527, 361), width: 79, height: 72 },
+        {id:'tower_34', position: new Point(185, 306), width: 89, height: 74 },
+        {id:'tower_35', position: new Point(185, 380), width: 89, height: 98 },
+        {id:'tower_36', position: new Point(282, 0),   width: 87, height: 82 },
+        {id:'tower_37', position: new Point(369, 0),   width: 83, height: 73 },
+        {id:'tower_38', position: new Point(449, 73),  width: 79, height: 72 },
+        {id:'tower_39', position: new Point(448, 386), width: 79, height: 72 },
+        {id:'tower_40', position: new Point(764, 221), width: 78, height: 72 },
+        {id:'tower_41', position: new Point(193, 0),   width: 89, height: 103},
+        {id:'tower_42', position: new Point(763, 0),   width: 79, height: 79 },
+        {id:'tower_43', position: new Point(526, 289), width: 79, height: 72 },
+        {id:'tower_44', position: new Point(685, 430), width: 79, height: 72 },
+        {id:'tower_45', position: new Point(685, 358), width: 79, height: 72 },
+        {id:'tower_46', position: new Point(0,   308), width: 93, height: 98 },
+        {id:'tower_47', position: new Point(531, 0),   width: 79, height: 79 },
+        {id:'tower_48', position: new Point(606, 377), width: 79, height: 72 },
+        {id:'tower_49', position: new Point(526, 145), width: 79, height: 72 },
+        {id:'tower_50', position: new Point(0,   406), width: 93, height: 98 },
+        {id:'tower_51', position: new Point(274, 424), width: 88, height: 82 },
+        {id:'tower_52', position: new Point(452, 0),   width: 79, height: 72 },
+        {id:'tower_53', position: new Point(274, 250), width: 89, height: 100},
+        {id:'tower_54', position: new Point(447, 307), width: 79, height: 79 }
+    ]);
+    game
+        .register(new Terrain(landSprite))
+        .register(new Tower(towerSprite))
+        ;
     game.start();
 });
