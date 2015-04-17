@@ -10,4 +10,4 @@ extend(Decoration, Entity, {
     draw: function(ctx) {
         this.sprite.drawPart(ctx, this.part, this.position);
     }
-})
+});
