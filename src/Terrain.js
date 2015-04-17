@@ -1,20 +1,27 @@
 var Terrain = function(sprite) {
     this.sprite = sprite;
+
+    this.grass = this.sprite.get('grass_block');
+    this.dirt = this.sprite.get('dirt_block');
+    this.water = this.sprite.get('water_block');
 };
 
 extend(Terrain, Entity, {
     draw: function(ctx) {
-        var part = this.sprite.get('landscape_21');
-        var point = new Point(part.width, part.height);
-        var between = false;
-        for(var i = 0; i < 110; i++) {
-            this.sprite.drawPart(ctx, part, point);
-            point = point.addX(part.width);
-            if(point.x > 900) {
-                point.x = between ? part.width : part.width / 2;
-                between = !between;
-                point = point.addY(part.height / 2.6);
+        var point = new Point(30, -20);
+        for(var i = 0; i < 10; i++) {
+            for(var j = 0; j < 13; j++) {
+                if(j === 2 || i === 2) {
+                    this.sprite.drawPart(ctx, this.water, point);
+                } else if(j === 1 || j === 3 || i === 1 || i === 3) {
+                    this.sprite.drawPart(ctx, this.dirt, point);
+                } else {
+                    this.sprite.drawPart(ctx, this.grass, point);
+                }
+                point = point.addX(this.grass.width);
             }
+            point.x = 30;
+            point = point.addY(83);
         }
     }
 });
