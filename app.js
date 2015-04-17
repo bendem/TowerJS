@@ -65,7 +65,11 @@ game.resourceManager.ready(function() {
     ]);
     game
         .register(new Terrain(sprite))
-        .register(new Tower(sprite))
+        // .register(new Tower(sprite))
+        .register(new Decoration(sprite, 'tree_tall', 3, 4))
+        .register(new Decoration(sprite, 'tree_tall', 4, 5))
+        .register(new Decoration(sprite, 'tree_tall', 9, 5))
+        .register(new Decoration(sprite, 'tree_tall', 5, 9))
         ;
     game.start();
 });
