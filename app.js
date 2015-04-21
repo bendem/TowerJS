@@ -78,8 +78,8 @@ game.resourceManager.ready(function() {
 
     var path = generateHorizontalPath(
         cols, lines,
-        new Point(0, randomInt(0, lines)),
-        new Point(cols - 1, randomInt(0, lines))
+        new Point(0, Math.floor(lines / 2)),
+        new Point(cols - 1, randomInt(0, Math.floor(lines / 2)))
     );
 
     var terrain = [];
