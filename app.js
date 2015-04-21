@@ -2,7 +2,10 @@ var SPRITE = 'assets/sprites/PlanetCute.png';
 
 // Game.debug = true;
 var game = new Game();
+
+// Start loading sprites before anything else
 game.resourceManager.load(SPRITE);
+
 game.resourceManager.ready(function() {
     var sprite = new Sprite(
         game.resourceManager.get(SPRITE)
@@ -63,8 +66,34 @@ game.resourceManager.ready(function() {
         {id: 'window_tall', position: new Point(909, 684), 'width': 101, 'height': 171},
         {id: 'wood_block', position: new Point(1010, 684), 'width': 101, 'height': 171}
     ]);
+
+    var terrain_block = sprite.get('brown_block');
+    var square_dimension = new Vector(terrain_block.width, 83);
+
+    var cols = Math.floor(game.width / square_dimension.x);
+    var lines = Math.floor(game.height / square_dimension.y);
+
+    game.setWidth(cols * square_dimension.x);
+    game.setHeight(lines * square_dimension.y);
+
+    var path = generateHorizontalPath(
+        cols, lines,
+        new Point(0, randomInt(0, lines)),
+        new Point(cols - 1, randomInt(0, lines))
+    );
+
+    var terrain = [];
+
+    for(var y = 0; y < lines; y++) {
+        var a = [];
+        for(var x = 0; x < cols; x++) {
+            a.push(path[x][y] ? 'dirt' : 'grass');
+        }
+        terrain.push(a);
+    }
+
     game
-        .register(new Terrain(sprite))
+        .register(new Terrain(sprite, terrain, square_dimension))
         // .register(new Tower(sprite))
         .register(new Decoration(sprite, 'tree_tall', 3, 4))
         .register(new Decoration(sprite, 'tree_tall', 4, 5))
