@@ -9,7 +9,7 @@ var Terrain = function(sprite, terrain_grid, square_dimension) {
     this.grass = this.sprite.get('grass_block');
     this.dirt = this.sprite.get('dirt_block');
     this.water = this.sprite.get('water_block');
-    this.path = this.sprite.get('brown_block');
+    this.path = this.sprite.get('stone_block');
 };
 
 extend(Terrain, Entity, {

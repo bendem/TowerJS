@@ -82,23 +82,48 @@ game.resourceManager.ready(function() {
         new Point(cols - 1, randomInt(0, Math.floor(lines / 2)))
     );
 
-    var terrain = [];
+    var x, y;
+    for(var i = 0; i < 5; i++) {
+        x = randomInt(0, cols);
+        y = randomInt(1, lines - 1);
+        console.log(x, y, path[x][y]);
+        if(path[x][y+1] === 0) {
+            path[x][y+1] = 2;
+        }
+    }
+    debugArray2D(path);
 
-    for(var y = 0; y < lines; y++) {
+    var terrain = [];
+    var decorations = [];
+
+    for(y = 0; y < lines; y++) {
         var a = [];
-        for(var x = 0; x < cols; x++) {
-            a.push(path[x][y] ? 'dirt' : 'grass');
+        for(x = 0; x < cols; x++) {
+            switch(path[x][y]) {
+                case 1:
+                    a.push('path');
+                    break;
+                case 2:
+                    a.push('grass');
+                    decorations.push(new Decoration(
+                        sprite,
+                        'tree_tall',
+                        square_dimension,
+                        new Point(x, y)
+                    ));
+                    break;
+                default:
+                    a.push('grass');
+            }
         }
         terrain.push(a);
     }
 
-    game
-        .register(new Terrain(sprite, terrain, square_dimension))
-        // .register(new Tower(sprite))
-        .register(new Decoration(sprite, 'tree_tall', 3, 4))
-        .register(new Decoration(sprite, 'tree_tall', 4, 5))
-        .register(new Decoration(sprite, 'tree_tall', 9, 5))
-        .register(new Decoration(sprite, 'tree_tall', 5, 9))
-        ;
+    game.register(new Terrain(sprite, terrain, square_dimension));
+
+    decorations.forEach(function(d) {
+        game.register(d);
+    });
+
     game.start();
 });
