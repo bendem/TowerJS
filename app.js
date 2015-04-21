@@ -77,11 +77,11 @@ game.resourceManager.ready(function() {
     game.setHeight(lines * square_dimension.y);
 
     // Generate the map with the path
-    var path = generateHorizontalPath(
+    var path = new Path(
         cols, lines,
-        new Point(0, Math.floor(lines / 2)),
-        new Point(cols - 1, randomInt(0, Math.floor(lines / 2)))
-    );
+        Math.floor(lines / 2),
+        Math.floor(lines / 2)
+    ).generate();
 
     // Add decorations
     var large_decorations = 4;
@@ -91,14 +91,14 @@ game.resourceManager.ready(function() {
         x = randomInt(0, cols);
         y = randomInt(1, lines - 1);
         if(path[x][y+1] === 0) {
-            path[x][y+1] = 2;
+            path[x][y+1] = 3;
         }
     }
     for(i = 0; i < small_decorations; i++) {
         x = randomInt(0, cols);
         y = randomInt(1, lines - 1);
         if(path[x][y] === 0) {
-            path[x][y] = 3;
+            path[x][y] = 4;
         }
     }
 
@@ -116,6 +116,9 @@ game.resourceManager.ready(function() {
                     a.push('path');
                     break;
                 case 2:
+                    a.push('dirt');
+                    break;
+                case 3:
                     a.push('grass');
                     decorations.push(new Decoration(
                         sprite,
@@ -125,7 +128,7 @@ game.resourceManager.ready(function() {
                         2
                     ));
                     break;
-                case 3:
+                case 4:
                     a.push('grass');
                     decorations.push(new Decoration(
                         sprite,
