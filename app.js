@@ -76,23 +76,35 @@ game.resourceManager.ready(function() {
     game.setWidth(cols * square_dimension.x);
     game.setHeight(lines * square_dimension.y);
 
+    // Generate the map with the path
     var path = generateHorizontalPath(
         cols, lines,
         new Point(0, Math.floor(lines / 2)),
         new Point(cols - 1, randomInt(0, Math.floor(lines / 2)))
     );
 
-    var x, y;
-    for(var i = 0; i < 5; i++) {
+    // Add decorations
+    var large_decorations = 4;
+    var small_decorations = 3;
+    var x, y, i;
+    for(i = 0; i < large_decorations; i++) {
         x = randomInt(0, cols);
         y = randomInt(1, lines - 1);
-        console.log(x, y, path[x][y]);
         if(path[x][y+1] === 0) {
             path[x][y+1] = 2;
         }
     }
+    for(i = 0; i < small_decorations; i++) {
+        x = randomInt(0, cols);
+        y = randomInt(1, lines - 1);
+        if(path[x][y] === 0) {
+            path[x][y] = 3;
+        }
+    }
+
     debugArray2D(path);
 
+    // Generate the terrain and the decorations
     var terrain = [];
     var decorations = [];
 
@@ -108,6 +120,16 @@ game.resourceManager.ready(function() {
                     decorations.push(new Decoration(
                         sprite,
                         'tree_tall',
+                        square_dimension,
+                        new Point(x, y),
+                        2
+                    ));
+                    break;
+                case 3:
+                    a.push('grass');
+                    decorations.push(new Decoration(
+                        sprite,
+                        choose(['tree_ugly', 'tree_short', 'rock']),
                         square_dimension,
                         new Point(x, y)
                     ));

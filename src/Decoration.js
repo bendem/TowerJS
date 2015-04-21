@@ -1,7 +1,8 @@
-var Decoration = function(sprite, id, dim, pos) {
+var Decoration = function(sprite, id, dim, pos, height) {
     this.sprite = sprite;
     this.part = sprite.get(id);
-    this.position = new Point(dim.x * pos.x, dim.y * (pos.y - 1));
+    height = height ? height - 1 : 1;
+    this.position = new Point(dim.x * pos.x, dim.y * (pos.y - height));
 };
 
 extend(Decoration, Entity, {

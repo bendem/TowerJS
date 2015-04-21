@@ -5,8 +5,6 @@ var generateHorizontalPath = function(cols, lines, from, to) {
     );
     path[from.x][from.y] = 1;
 
-    debugArray2D(path);
-
     var i = 0;
 
     var current = new Point(from.x + 1, from.y);
@@ -47,13 +45,11 @@ var generateHorizontalPath = function(cols, lines, from, to) {
         }
 
         if(i++ > 1000) {
-            // Testing security
+            // Let's make sure we don't fuck up
             break;
         }
     }
     path[current.x][current.y] = 1;
-
-    debugArray2D(path);
 
     return path;
 };
