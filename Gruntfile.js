@@ -28,7 +28,14 @@ module.exports = function(grunt) {
 
         // Concat everything
         concat: {
-            options: {
+            src: {
+                src: [
+                    'src/*.js',
+                    'app.js'
+                ],
+                dest: 'dist/tmp.js'
+            },
+            dist: {
                 banner: '/* <%= pkg.name %> - <%= pkg.version %> */\n"use strict";\n',
                 // Replace all 'use strict'; with one on top
                 process: function(src, filepath) {
@@ -37,12 +44,9 @@ module.exports = function(grunt) {
                         '$1'
                     );
                 },
-            },
-            dist: {
                 src: [
-                    'JsGameLib/dist/*.js',
-                    'src/*.js',
-                    'app.js'
+                    'JsGameLib/dist/JsGameLib.js',
+                    'dist/tmp.js'
                 ],
                 dest: 'dist/built.js'
             }
@@ -51,6 +55,8 @@ module.exports = function(grunt) {
         // A bit of checking just to be sure
         jshint: {
             options: {
+                dirname: '.',
+                prereq: ['JsGameLib/dist/JsGameLib.js'],
                 curly: true,
                 globalstrict: true,
                 freeze: true,
@@ -60,8 +66,9 @@ module.exports = function(grunt) {
                 laxbreak: true,
                 devel: true,
             },
-            all: ['dist/built.js']
+            all: ['dist/tmp.js']
         },
+
         watch: {
             scripts: {
                 files: [
@@ -78,5 +85,10 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask('default', ['subgrunt:default', 'concat', 'jshint']);
+    grunt.registerTask('default', [
+        'subgrunt:default',
+        'concat:src',
+        'jshint',
+        'concat:dist'
+    ]);
 };
