@@ -23,15 +23,24 @@ Path.prototype = {
         while(current.x < cols - 1 || current.y !== this.endY) {
             path[current.x][current.y] = 1;
 
-            directions = [Direction.Up, Direction.Down, Direction.Right];
-
+            // Last col, go to exit
             if(current.x === cols - 1) {
-                // Go to the exit if on last col
-                directions = [current.y > this.endY ? Direction.Up : Direction.Down];
-            } else if(current.y === 0 || path[current.x][current.y - 1] === 1) {
+                current = this.move(current, [current.y > this.endY ? Direction.Up : Direction.Down]);
+                continue;
+            }
+            // One before last col, move to right (prevents path to be going up/down
+            // next to each other)
+            if(current.x === cols - 2) {
+                current = this.move(current, [Direction.Right]);
+                continue;
+            }
+
+            directions = [Direction.Up, Direction.Down, Direction.Right];
+            if(current.y <= 1 || path[current.x][current.y - 1] === 1) {
                 // Don't go above the map or backward
                 arrayRemove(directions, Direction.Up);
-            } else if(current.y === lines - 1 || path[current.x][current.y + 1] === 1) {
+            }
+            if(current.y >= lines - 2 || path[current.x][current.y + 1] === 1) {
                 // Don't go below the map or backward
                 arrayRemove(directions, Direction.Down);
             }
