@@ -13,7 +13,6 @@ Path.prototype = {
             filledArray(0, lines),
             cols
         );
-        var i = 0;
 
         path[0][this.startY] = 2;
 
@@ -56,19 +55,7 @@ Path.prototype = {
                 arrayRemove(directions, Direction.Down);
             }
 
-            if(directions.length === 0) {
-                console.log(directions);
-                console.error("Can't move");
-                break;
-            }
-
             current = this.move(current, directions);
-
-            if(i++ > 1000) {
-                // Let's make sure we don't fuck up
-                console.error('100 iterations, breaking');
-                break;
-            }
         }
         path[current.x][current.y] = 2;
 
