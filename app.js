@@ -89,5 +89,7 @@ game.resourceManager.ready(function() {
         game.register(d);
     });
 
+    game.register(new Monster(path, new Point(0, Math.floor(lines / 2)), square_dimension));
+
     game.start();
 });

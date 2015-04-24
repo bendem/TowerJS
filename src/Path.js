@@ -76,8 +76,8 @@ Path.prototype = {
 
 var debugArray2D = function(arr) {
     var a = '';
-    for (var i = 0; i < arr[0].length; i++) {
-        for (var j = 0; j < arr.length; j++) {
+    for(var i = 0; i < arr[0].length; i++) {
+        for(var j = 0; j < arr.length; j++) {
             a += arr[j][i] + ' ';
         }
         a += '\n';
