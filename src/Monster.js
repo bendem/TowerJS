@@ -3,14 +3,14 @@ var Monster = function(map, pos, square_dimension) {
     this.position = pos;
     this.square_dimension = square_dimension;
     this.positionOnSquare = new Point(0, square_dimension.y/2); // anchor is the center
-    this.width = 60; // @temp
-    this.height = square_dimension.y; // @temp
+    this.width = square_dimension.x/1.5; // @temp
+    this.height = square_dimension.y/1.5; // @temp
     this.direction = Direction.Right;
 };
 
 extend(Monster, Entity, {
     update: function(delta) {
-        while(delta-- > 0) {
+        while(delta-- > 0 && !this.remove) {
             this.move(0.2);
         }
     },
@@ -69,6 +69,7 @@ extend(Monster, Entity, {
 
     moveToNextSquare: function() {
         if(this.prev && arrayGet(this.map, this.position) == 2) {
+            game.eventManager.handleEvent('life_lost');
             this.remove = true;
             return;
         }

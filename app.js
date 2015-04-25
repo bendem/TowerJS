@@ -89,7 +89,10 @@ game.resourceManager.ready(function() {
         game.register(d);
     });
 
-    game.register(new Monster(path, new Point(0, Math.floor(lines / 2)), square_dimension));
+    game
+        .register(new Monster(path, new Point(0, Math.floor(lines / 2)), square_dimension))
+        .register(new LifeCounter(3, new Point(10, 10), 40, 10, 1))
+        ;
 
     game.start();
 });
