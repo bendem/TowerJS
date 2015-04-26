@@ -9,10 +9,7 @@ Path.prototype = {
     generate: function() {
         var cols = this.cols;
         var lines = this.lines;
-        var path = filledArray(
-            filledArray(0, lines),
-            cols
-        );
+        var path = Arrays2D.of(cols, lines, 0);
 
         path[0][this.startY] = 2;
 
@@ -20,7 +17,7 @@ Path.prototype = {
         var directions;
 
         while(current.x < cols - 1 || current.y !== this.endY) {
-            path[current.x][current.y] = 1;
+            Arrays2D.set(path, current, 1);
 
             // Last col, go to exit
             if(current.x === cols - 1) {
@@ -37,33 +34,33 @@ Path.prototype = {
             directions = [Direction.Up, Direction.Down, Direction.Right];
             if(current.y <= 1 || path[current.x][current.y - 1] === 1) {
                 // Don't go above the map or backward
-                arrayRemove(directions, Direction.Up);
+                Arrays.remove(directions, Direction.Up);
             }
             if(current.y >= lines - 2 || path[current.x][current.y + 1] === 1) {
                 // Don't go below the map or backward
-                arrayRemove(directions, Direction.Down);
+                Arrays.remove(directions, Direction.Down);
             }
 
             if(path[current.x - 1][current.y - 1] === 1) {
                 // Don't make a vertical path right next to another one
                 // while going up
-                arrayRemove(directions, Direction.Up);
+                Arrays.remove(directions, Direction.Up);
             }
             if(path[current.x - 1][current.y + 1] === 1) {
                 // Don't make a vertical path right next to another one
                 // while going down
-                arrayRemove(directions, Direction.Down);
+                Arrays.remove(directions, Direction.Down);
             }
 
             current = this.move(current, directions);
         }
-        path[current.x][current.y] = 2;
+        Arrays2D.set(path, current, 2);
 
         return path;
     },
 
     move: function(current, directions) {
-        switch(choose(directions)) {
+        switch(Arrays.choose(directions)) {
             case Direction.Up:
                 return current.addY(-1);
             case Direction.Down:
@@ -72,15 +69,4 @@ Path.prototype = {
                 return current.addX(1);
         }
     }
-};
-
-var debugArray2D = function(arr) {
-    var a = '';
-    for(var i = 0; i < arr[0].length; i++) {
-        for(var j = 0; j < arr.length; j++) {
-            a += arr[j][i] + ' ';
-        }
-        a += '\n';
-    }
-    console.log(a);
 };

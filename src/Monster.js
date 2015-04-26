@@ -27,7 +27,7 @@ extend(Monster, Entity, {
         if(this.position.x >= this.map.length - 1 && this.direction == Direction.Right) {
             sameDirection = false;
         } else {
-            sameDirection = isOneOf(arrayGet(
+            sameDirection = isOneOf(Arrays2D.get(
                 this.map,
                 this.applyDirection(this.position, this.direction)
             ), 1, 2);
@@ -74,7 +74,7 @@ extend(Monster, Entity, {
     },
 
     moveToNextSquare: function() {
-        if(this.prev && arrayGet(this.map, this.position) == 2) {
+        if(this.prev && Arrays2D.get(this.map, this.position) == 2) {
             game.eventManager.handleEvent('life_lost');
             this.remove = true;
             return;
@@ -111,11 +111,11 @@ extend(Monster, Entity, {
 
     checkDirection: function() {
         if(this.direction !== Direction.Up
-                && isOneOf(arrayGet(this.map, this.position.addY(1)), 1, 2)) {
+                && isOneOf(Arrays2D.get(this.map, this.position.addY(1)), 1, 2)) {
             return Direction.Down;
         }
         if(this.direction !== Direction.Down
-                && isOneOf(arrayGet(this.map, this.position.addY(-1)), 1, 2)) {
+                && isOneOf(Arrays2D.get(this.map, this.position.addY(-1)), 1, 2)) {
             return Direction.Up;
         }
         return Direction.Right;

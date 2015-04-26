@@ -41,7 +41,7 @@ game.resourceManager.ready(function() {
         }
     }
 
-    debugArray2D(path);
+    Arrays2D.debug(path);
 
     // Generate the terrain and the decorations
     var terrain = [];
@@ -71,7 +71,7 @@ game.resourceManager.ready(function() {
                     a.push('grass');
                     decorations.push(new Decoration(
                         sprite,
-                        choose(['tree_ugly', 'tree_short', 'rock']),
+                        Arrays.choose(['tree_ugly', 'tree_short', 'rock']),
                         square_dimension,
                         new Point(x, y)
                     ));
