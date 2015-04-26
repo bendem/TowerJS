@@ -10,7 +10,7 @@ var Monster = function(health, map, pos, square_dimension) {
 
     this.direction = Direction.Right;
 
-    this.healthBarWidth = 70
+    this.healthBarWidth = 70;
     this.healthBarHeight = 5;
 };
 
@@ -123,7 +123,7 @@ extend(Monster, Entity, {
 
     draw: function(ctx) {
         var centerX = this.position.x * this.square_dimension.x + this.positionOnSquare.x;
-        var centerY = this.position.y * this.square_dimension.y + this.positionOnSquare.y
+        var centerY = this.position.y * this.square_dimension.y + this.positionOnSquare.y;
 
         var size = this.health / this.maxhealth * this.healthBarWidth;
 
