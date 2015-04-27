@@ -17,7 +17,8 @@ extend(LifeCounter, Entity, {
 
         ctx.fillStyle = 'rgba(0,0,0,0.5)';
         ctx.strokeStyle = '#111';
-        roundRect(
+        ctx.beginPath();
+        Draw.roundedRect(
             ctx,
             this.position,
             this.hPad * 2 + width, this.vPad * 2 + this.size,
@@ -33,32 +34,10 @@ extend(LifeCounter, Entity, {
             this.position.y + this.vPad + this.size / 2
         );
     },
+
     dec: function() {
         if(--this.count === 0) {
             game.eventManager.handleEvent('game_lost');
         }
     },
 });
-
-// TODO Move that to JsGameLib
-var roundRect = function(ctx, pos, w, h, rad) {
-    ctx.beginPath();
-
-    // start after top left
-    ctx.moveTo(pos.x + rad, pos.y);
-
-    // top right
-    ctx.lineTo(pos.x + w - rad, pos.y);
-    ctx.arcTo(pos.x + w, pos.y, pos.x + w, pos.y + rad, rad);
-    // bottom right
-    ctx.lineTo(pos.x + w, pos.y + h - rad);
-    ctx.arcTo(pos.x + w, pos.y + h, pos.x + w - rad, pos.y + h, rad);
-
-    // bottom left
-    ctx.lineTo(pos.x + rad, pos.y + h);
-    ctx.arcTo(pos.x, pos.y + h, pos.x, pos.y + h - rad, rad);
-
-    // top left
-    ctx.lineTo(pos.x, pos.y + rad);
-    ctx.arcTo(pos.x, pos.y, pos.x + rad, pos.y, rad);
-};
