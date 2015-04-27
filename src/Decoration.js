@@ -3,6 +3,7 @@ var Decoration = function(sprite, id, dim, pos, height) {
     this.part = sprite.get(id);
     height = height ? height - 1 : 1;
     this.position = new Point(dim.x * pos.x, dim.y * (pos.y - height));
+    this.layer = pos.y;
 };
 
 extend(Decoration, Entity, {

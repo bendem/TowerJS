@@ -9,6 +9,7 @@ var Monster = function(health, map, pos, square_dimension) {
     this.height = square_dimension.y/1.5; // @temp
 
     this.direction = Direction.Right;
+    this.layer = pos.y;
 
     this.healthBarWidth = 70;
     this.healthBarHeight = 5;
@@ -19,6 +20,7 @@ extend(Monster, Entity, {
         while(delta-- > 0 && !this.remove) {
             this.move(0.2);
         }
+        this.layer = this.position.y;
     },
 
     move: function(dist) {

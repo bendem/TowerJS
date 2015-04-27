@@ -4,6 +4,7 @@ var LifeCounter = function(count, position, size, hPad, vPad) {
     this.size = size;
     this.hPad = hPad;
     this.vPad = vPad;
+    this.layer = game.layerCount - 1;
     game.eventManager.register('life_lost', this.dec, this);
 };
 

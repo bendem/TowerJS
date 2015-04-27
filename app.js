@@ -12,8 +12,11 @@ game.resourceManager.ready(function() {
     var cols = Math.floor(game.width / square_dimension.x);
     var lines = Math.floor(game.height / square_dimension.y);
 
-    game.setWidth(cols * square_dimension.x);
-    game.setHeight(lines * square_dimension.y);
+    game
+        .setWidth(cols * square_dimension.x)
+        .setHeight(lines * square_dimension.y)
+        .setLayerCount(lines)
+        ;
 
     // Generate the map with the path
     var path = new Path(
