@@ -1,8 +1,11 @@
-var Decoration = function(sprite, id, dim, pos, height) {
+var Decoration = function(sprite, id, pos, height) {
     this.sprite = sprite;
     this.part = sprite.get(id);
     height = height ? height - 1 : 1;
-    this.position = new Point(dim.x * pos.x, dim.y * (pos.y - height));
+    this.position = new Point(
+        square_dimension.x * pos.x,
+        square_dimension.y * (pos.y - height)
+    );
     this.layer = pos.y;
 };
 

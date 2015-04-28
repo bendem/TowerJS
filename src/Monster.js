@@ -1,10 +1,9 @@
-var Monster = function(health, map, pos, square_dimension) {
+var Monster = function(health, map, pos) {
     this.health = health;
     this.maxhealth = health;
     this.map = map;
     this.position = pos;
-    this.square_dimension = square_dimension;
-    this.positionOnSquare = new Point(0, square_dimension.y/2); // anchor is the center
+    this.positionOnSquare = new Point(0, square_dimension.y/2); // that represents the center of the monster
     this.width = square_dimension.x/1.5; // @temp
     this.height = square_dimension.y/1.5; // @temp
 
@@ -38,8 +37,8 @@ extend(Monster, Entity, {
         switch(this.direction) {
             case Direction.Right:
                 var maxX = sameDirection
-                    ? this.square_dimension.x + this.square_dimension.x / 2
-                    : this.square_dimension.x / 2;
+                    ? square_dimension.x + square_dimension.x / 2
+                    : square_dimension.x / 2;
 
                 if(this.positionOnSquare.x + dist > maxX) {
                     this.positionOnSquare.x = maxX;
@@ -50,8 +49,8 @@ extend(Monster, Entity, {
                 break;
             case Direction.Up:
                 var minY = sameDirection
-                    ? -this.square_dimension.y / 2
-                    : this.square_dimension.y / 2;
+                    ? -square_dimension.y / 2
+                    : square_dimension.y / 2;
 
                 if(this.positionOnSquare.y - dist < minY) {
                     this.positionOnSquare.y = minY;
@@ -62,8 +61,8 @@ extend(Monster, Entity, {
                 break;
             case Direction.Down:
                 var maxY = sameDirection
-                    ? this.square_dimension.y + this.square_dimension.y / 2
-                    : this.square_dimension.y / 2;
+                    ? square_dimension.y + square_dimension.y / 2
+                    : square_dimension.y / 2;
 
                 if(this.positionOnSquare.y + dist > maxY) {
                     this.positionOnSquare.y = maxY;
@@ -86,15 +85,15 @@ extend(Monster, Entity, {
         switch(this.direction) {
             case Direction.Right:
                 this.position = this.position.addX(1);
-                this.positionOnSquare.x = this.square_dimension.x / 2;
+                this.positionOnSquare.x = square_dimension.x / 2;
                 break;
             case Direction.Up:
                 this.position = this.position.addY(-1);
-                this.positionOnSquare.y = this.square_dimension.y / 2;
+                this.positionOnSquare.y = square_dimension.y / 2;
                 break;
             case Direction.Down:
                 this.position = this.position.addY(1);
-                this.positionOnSquare.y = this.square_dimension.y / 2;
+                this.positionOnSquare.y = square_dimension.y / 2;
                 break;
         }
         this.direction = this.checkDirection();
@@ -124,8 +123,8 @@ extend(Monster, Entity, {
     },
 
     draw: function(ctx) {
-        var centerX = this.position.x * this.square_dimension.x + this.positionOnSquare.x;
-        var centerY = this.position.y * this.square_dimension.y + this.positionOnSquare.y;
+        var centerX = this.position.x * square_dimension.x + this.positionOnSquare.x;
+        var centerY = this.position.y * square_dimension.y + this.positionOnSquare.y;
 
         var size = this.health / this.maxhealth * this.healthBarWidth;
 

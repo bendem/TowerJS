@@ -3,11 +3,12 @@ var SPRITE = 'assets/sprites/PlanetCute.png';
 // Game.debug = true;
 var game = new Game();
 var spriteBuilder = new SpriteBuilder(game.resourceManager, SPRITE).load();
+var square_dimension;
 
 game.resourceManager.ready(function() {
     var sprite = spriteBuilder.getSprite();
     var terrain_block = sprite.get('brown_block');
-    var square_dimension = new Vector(terrain_block.width, 83);
+    square_dimension = new Vector(terrain_block.width, 83);
 
     var cols = Math.floor(game.width / square_dimension.x);
     var lines = Math.floor(game.height / square_dimension.y);
@@ -26,8 +27,9 @@ game.resourceManager.ready(function() {
     ).generate();
 
     // Add decorations
-    var large_decorations = 4;
-    var small_decorations = 3;
+    var squares = lines * cols;
+    var large_decorations = squares / 40;
+    var small_decorations = squares / 25;
     var x, y, i;
     for(i = 0; i < large_decorations; i++) {
         x = randomInt(0, cols);
@@ -65,7 +67,6 @@ game.resourceManager.ready(function() {
                     decorations.push(new Decoration(
                         sprite,
                         'tree_tall',
-                        square_dimension,
                         new Point(x, y),
                         2
                     ));
@@ -75,7 +76,6 @@ game.resourceManager.ready(function() {
                     decorations.push(new Decoration(
                         sprite,
                         Arrays.choose(['tree_ugly', 'tree_short', 'rock']),
-                        square_dimension,
                         new Point(x, y)
                     ));
                     break;
@@ -86,7 +86,7 @@ game.resourceManager.ready(function() {
         terrain.push(a);
     }
 
-    game.register(new Terrain(sprite, terrain, square_dimension));
+    game.register(new Terrain(sprite, terrain));
 
     decorations.forEach(function(d) {
         game.register(d);

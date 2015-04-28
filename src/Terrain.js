@@ -1,7 +1,6 @@
-var Terrain = function(sprite, terrain_grid, square_dimension) {
+var Terrain = function(sprite, terrain_grid) {
     this.sprite = sprite;
     this.grid = terrain_grid;
-    this.square_dimension = square_dimension;
 
     this.cols = terrain_grid.length;
     this.lines = terrain_grid[0].length;
@@ -34,10 +33,10 @@ extend(Terrain, Entity, {
                         break;
 
                 }
-                point = point.addX(this.square_dimension.x);
+                point = point.addX(square_dimension.x);
             }
             point.x = 0;
-            point = point.addY(this.square_dimension.y);
+            point = point.addY(square_dimension.y);
         }
     }
 });
