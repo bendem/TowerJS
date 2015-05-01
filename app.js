@@ -30,69 +30,29 @@ game.resourceManager.ready(function() {
     var squares = lines * cols;
     var large_decorations = squares / 40;
     var small_decorations = squares / 25;
-    var x, y, i;
-    for(i = 0; i < large_decorations; i++) {
-        x = randomInt(0, cols);
-        y = randomInt(1, lines - 1);
-        if(path[x][y+1] === 0) {
-            path[x][y+1] = 3;
-        }
-    }
-    for(i = 0; i < small_decorations; i++) {
-        x = randomInt(0, cols);
-        y = randomInt(1, lines - 1);
-        if(path[x][y] === 0) {
-            path[x][y] = 4;
-        }
-    }
+
+    var decorator = new GameDecorator(path);
+
+    decorator.decorate([3], large_decorations, new Vector(0, 1));
+    decorator.decorate([4, 5, 6], small_decorations);
 
     Arrays2D.debug(path);
 
-    // Generate the terrain and the decorations
-    var terrain = [];
-    var decorations = [];
+    var terrain = decorator.translateGrid({
+        1: 'path',
+        2: 'dirt'
+    }, 'grass');
 
-    for(y = 0; y < lines; y++) {
-        var a = [];
-        for(x = 0; x < cols; x++) {
-            switch(path[x][y]) {
-                case 1:
-                    a.push('path');
-                    break;
-                case 2:
-                    a.push('dirt');
-                    break;
-                case 3:
-                    a.push('grass');
-                    decorations.push(new Decoration(
-                        sprite,
-                        'tree_tall',
-                        new Point(x, y),
-                        2
-                    ));
-                    break;
-                case 4:
-                    a.push('grass');
-                    decorations.push(new Decoration(
-                        sprite,
-                        Arrays.choose(['tree_ugly', 'tree_short', 'rock']),
-                        new Point(x, y)
-                    ));
-                    break;
-                default:
-                    a.push('grass');
-            }
-        }
-        terrain.push(a);
-    }
-
-    game.register(new Terrain(sprite, terrain));
-
-    decorations.forEach(function(d) {
-        game.register(d);
-    });
+    var decorations = decorator.translateComponents({
+        3: 'tree_tall',
+        4: 'tree_ugly',
+        5: 'tree_short',
+        6: 'rock',
+    }, sprite);
 
     game
+        .register(new Terrain(sprite, terrain))
+        .register(decorations)
         .register(new Monster(100, path, new Point(0, Math.floor(lines / 2)), square_dimension))
         .register(new LifeCounter(3, new Point(10, 10), 40, 10, 1))
         ;
