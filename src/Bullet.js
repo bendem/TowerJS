@@ -7,6 +7,12 @@ var Bullet = function(target, pos) {
 
 extend(Bullet, Entity, {
     update: function(delta) {
+        // Don't let bullets without target running around
+        if(this.target.remove) {
+            this.remove = true;
+            return;
+        }
+
         while(delta-- > 0) {
             if(this.touches()) {
                 this.remove = true;
