@@ -84,15 +84,15 @@ extend(Monster, Entity, {
 
         switch(this.direction) {
             case Direction.Right:
-                this.position = this.position.addX(1);
+                this.position.x += 1;
                 this.positionOnSquare.x = square_dimension.x / 2;
                 break;
             case Direction.Up:
-                this.position = this.position.addY(-1);
+                this.position.y -= 1;
                 this.positionOnSquare.y = square_dimension.y / 2;
                 break;
             case Direction.Down:
-                this.position = this.position.addY(1);
+                this.position.y += 1;
                 this.positionOnSquare.y = square_dimension.y / 2;
                 break;
         }
