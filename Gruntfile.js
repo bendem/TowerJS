@@ -70,14 +70,21 @@ module.exports = function(grunt) {
         },
 
         watch: {
-            scripts: {
+            libs: {
                 files: [
-                    'JsGameLib/src/*.js',
+                    'JsGameLib/src/*.js'
+                ],
+                tasks: [
+                    'subgrunt:concat',
+                    'concat'
+                ],
+            },
+            app: {
+                files: [
                     'src/*.js',
                     'app.js'
                 ],
                 tasks: [
-                    'subgrunt:concat',
                     'concat'
                 ],
             },
