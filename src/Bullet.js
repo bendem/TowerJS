@@ -2,12 +2,13 @@ var Bullet = function(target, pos) {
     this.target = target;
     this.position = pos; // global position
     this.layer = Math.floor(pos.y / square_dimension.y);
-    this.damage = 1;
+    this.damage = 10;
 };
 
 extend(Bullet, Entity, {
     update: function(delta) {
         // Don't let bullets without target running around
+        // TODO Maybe they should find a new target?
         if(this.target.remove) {
             this.remove = true;
             return;
@@ -17,6 +18,7 @@ extend(Bullet, Entity, {
             if(this.touches()) {
                 this.remove = true;
                 this.target.health -= this.damage;
+                return;
             }
             this.move();
         }
@@ -33,7 +35,7 @@ extend(Bullet, Entity, {
     },
 
     move: function() {
-        var move = new Vector(0.5, 0.5);
+        var move = new Vector(0.2, 0.2);
         var rotation = gridToGlobal(
             this.target.position,
             this.target.positionOnSquare

@@ -5,8 +5,8 @@ var Tower = function(sprite, pos, range) {
     this.layer = pos.y;
 
     this.selected = true;
-    this.cooldown = 350;
-    this.lastShot = 350;
+    this.cooldown = 200;
+    this.lastShot = 200;
 
     // @temp
     this.width = square_dimension.x / 2;
