@@ -1,7 +1,7 @@
 var Bullet = function(target, pos) {
     this.target = target;
     this.position = pos; // global position
-    this.layer = Math.floor(pos.y / square_dimension.y);
+    this.layer = globalToGrid(this.position).y;
     this.damage = 10;
 };
 
@@ -22,7 +22,7 @@ extend(Bullet, Entity, {
             }
             this.move();
         }
-        this.layer = Math.floor(this.position.y / square_dimension.y);
+        this.layer = globalToGrid(this.position).y;
     },
 
     touches: function() {
