@@ -16,8 +16,13 @@ var Monster = function(health, map, pos) {
 
 extend(Monster, Entity, {
     update: function(delta) {
+        if(this.health <= 0) {
+            this.remove = true;
+            return;
+        }
+
         while(delta-- > 0 && !this.remove) {
-            this.move(0.2);
+            this.move(0.1);
         }
         this.layer = this.position.y;
     },
@@ -123,38 +128,45 @@ extend(Monster, Entity, {
     },
 
     draw: function(ctx) {
+        if(this.health <= 0) {
+            return;
+        }
+
         var centerX = this.position.x * square_dimension.x + this.positionOnSquare.x;
         var centerY = this.position.y * square_dimension.y + this.positionOnSquare.y;
 
         var size = this.health / this.maxhealth * this.healthBarWidth;
 
+        // Draw full health bar
         ctx.beginPath();
         ctx.fillStyle = 'rgba(0,255,0,0.8)';
         ctx.strokeStyle = 'rgba(0,0,0,0.9)';
         ctx.rect(
-            centerX - this.healthBarWidth/2,
-            centerY - this.height/2 - this.healthBarHeight - 5,
+            centerX - this.healthBarWidth / 2,
+            centerY - this.height / 2 - this.healthBarHeight - 5,
             this.healthBarWidth, this.healthBarHeight
         );
         ctx.stroke();
         ctx.fill();
 
+        // Draw missing health
         if(this.health < this.maxhealth) {
             ctx.beginPath();
             ctx.fillStyle = 'rgba(255,0,0,0.8)';
             ctx.rect(
-                centerX + this.healthBarWidth - size,
-                centerY - this.height/2 - this.healthBarHeight - 5,
+                centerX - this.healthBarWidth / 2 + size,
+                centerY - this.height / 2 - this.healthBarHeight - 5,
                 this.healthBarWidth - size, this.healthBarHeight
             );
             ctx.fill();
         }
 
+        // Draw the monster
         ctx.beginPath();
         ctx.fillStyle = 'rgba(0,0,0,0.7)';
         ctx.rect(
-            centerX - this.width/2,
-            centerY - this.height/2,
+            centerX - this.width / 2,
+            centerY - this.height / 2,
             this.width, this.height
         );
         ctx.fill();

@@ -5,6 +5,21 @@ var game = new Game();
 var spriteBuilder = new SpriteBuilder(game.resourceManager, SPRITE).load();
 var square_dimension;
 
+var gridToGlobal = function(point, offset) {
+    var glob = point.scale(square_dimension);
+    if(offset) {
+        glob = glob.add(offset);
+    }
+    return glob;
+};
+
+var globalToGrid = function(point) {
+    return new Point(
+        Math.floor(point.x / square_dimension.x),
+        Math.floor(point.y / square_dimension.y)
+    );
+};
+
 game.resourceManager.ready(function() {
     var sprite = spriteBuilder.getSprite();
     var terrain_block = sprite.get('brown_block');
@@ -52,6 +67,7 @@ game.resourceManager.ready(function() {
 
     game
         .register(new Terrain(sprite, terrain))
+        .register(new Tower(sprite, new Point(2, 5), 150))
         .register(decorations)
         .register(new Monster(100, path, new Point(0, Math.floor(lines / 2)), square_dimension))
         .register(new LifeCounter(3, new Point(10, 10), 40, 10, 1))
