@@ -43,7 +43,7 @@ game.resourceManager.ready(function() {
         2: 'dirt'
     }, 'grass');
 
-    var decorations = decorator.translateComponents({
+    var decorations = decorator.collectComponents({
         3: 'tree_tall',
         4: 'tree_ugly',
         5: 'tree_short',

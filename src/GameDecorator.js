@@ -42,7 +42,7 @@ GameDecorator.prototype = {
         return translated;
     },
 
-    translateComponents: function(translations, sprite) {
+    collectComponents: function(translations, sprite) {
         var components = [];
 
         var x, y, translation;
