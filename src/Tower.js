@@ -32,6 +32,7 @@ extend(Tower, Entity, {
     },
 
     findTarget: function(entities) {
+        // TODO Refine this to check if any part of the entity is in range
         var self = this;
         return Arrays.first(entities.filter(function(e) {
             return e instanceof Monster;

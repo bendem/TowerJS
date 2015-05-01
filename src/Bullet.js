@@ -18,6 +18,8 @@ extend(Bullet, Entity, {
     },
 
     touches: function() {
+        // TODO Refine this to check if touching any part of the entity,
+        // not just one point.
         return gridToGlobal(
             this.target.position,
             this.target.positionOnSquare
