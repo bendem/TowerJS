@@ -3,6 +3,7 @@ var Bullet = function(target, pos) {
     this.position = pos; // global position
     this.layer = globalToGrid(this.position).y;
     this.damage = 10;
+    this.radius = 10;
 };
 
 extend(Bullet, Entity, {
@@ -26,12 +27,7 @@ extend(Bullet, Entity, {
     },
 
     touches: function() {
-        // TODO Refine this to check if touching any part of the entity,
-        // not just one point.
-        return gridToGlobal(
-            this.target.position,
-            this.target.positionOnSquare
-        ).distance(this.position) < 10;
+        return this.target.getBox().distance(this.position) <= this.radius;
     },
 
     move: function() {
@@ -45,7 +41,7 @@ extend(Bullet, Entity, {
 
     draw: function(ctx) {
         ctx.beginPath();
-        Draw.circle(ctx, this.position, 10);
+        Draw.circle(ctx, this.position, this.radius);
         ctx.fillStyle = 'rgba(255, 100, 80, 0.9)';
         ctx.strokeStyle = '#333';
         ctx.lineWidth = 2;

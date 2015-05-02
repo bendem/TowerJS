@@ -5,8 +5,8 @@ var Tower = function(sprite, pos, range) {
     this.layer = pos.y;
 
     this.selected = true;
-    this.cooldown = 200;
-    this.lastShot = 200;
+    this.cooldown = 300;
+    this.lastShot = 300;
 
     // @temp
     this.width = square_dimension.x / 2;
@@ -32,18 +32,13 @@ extend(Tower, Entity, {
     },
 
     findTarget: function(entities) {
-        // TODO Refine this to check if any part of the entity is in range
+        // Only look for monsters
+        var monsters = entities.filter(function(e) { return e instanceof Monster; });
+
         var self = this;
-        return Arrays.first(entities.filter(function(e) {
-            return e instanceof Monster;
-        }), function(e) {
-            return gridToGlobal(
-                e.position,
-                e.positionOnSquare
-            ).distance(gridToGlobal(
-                self.position,
-                self.positionOnSquare
-            )) < self.range;
+        // Find the first in range
+        return Arrays.first(monsters, function(e) {
+            return e.getBox().distance(self.getBox().getCenter()) <= self.range;
         });
     },
 
@@ -54,6 +49,14 @@ extend(Tower, Entity, {
                 .addX(this.width / 2)
                 .addY(this.height / 2)
         ));
+    },
+
+    getBox: function() {
+        return new Box(
+            gridToGlobal(this.position, this.positionOnSquare),
+            this.width,
+            this.height
+        );
     },
 
     draw: function(ctx) {

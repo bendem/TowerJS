@@ -67,7 +67,7 @@ game.resourceManager.ready(function() {
 
     game
         .register(new Terrain(sprite, terrain))
-        .register(new Tower(sprite, new Point(2, 5), 150))
+        .register(new Tower(sprite, new Point(2, 5), square_dimension.x / 2 * 3))
         .register(decorations)
         .register(new Monster(100, path, new Point(0, Math.floor(lines / 2)), square_dimension))
         .register(new LifeCounter(3, new Point(10, 10), 40, 10, 1))

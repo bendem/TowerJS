@@ -127,6 +127,16 @@ extend(Monster, Entity, {
         return Direction.Right;
     },
 
+    getBox: function() {
+        return new Box(
+            gridToGlobal(this.position, this.positionOnSquare)
+                .addX(-this.width / 2)
+                .addY(-this.height / 2),
+            this.width,
+            this.height
+        );
+    },
+
     draw: function(ctx) {
         if(this.health <= 0) {
             return;
