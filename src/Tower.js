@@ -5,8 +5,8 @@ var Tower = function(sprite, pos, range) {
     this.layer = pos.y;
 
     this.selected = true;
-    this.cooldown = 300;
-    this.lastShot = 300;
+    this.cooldown = 20;
+    this.lastShot = 20;
 
     // @temp
     this.width = square_dimension.x / 2;
@@ -18,16 +18,14 @@ var Tower = function(sprite, pos, range) {
 };
 
 extend(Tower, Entity, {
-    update: function(delta, entities) {
+    update: function(entities) {
         var target;
-        while(delta-- > 0) {
-            if(++this.lastShot >= this.cooldown) {
-                target = this.findTarget(entities);
-                if(target) {
-                    this.shoot(target);
-                }
-                this.lastShot = 0;
+        if(++this.lastShot >= this.cooldown) {
+            target = this.findTarget(entities);
+            if(target) {
+                this.shoot(target);
             }
+            this.lastShot = 0;
         }
     },
 

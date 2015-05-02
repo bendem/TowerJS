@@ -15,15 +15,13 @@ var Monster = function(health, map, pos) {
 };
 
 extend(Monster, Entity, {
-    update: function(delta) {
+    update: function() {
         if(this.health <= 0) {
             this.remove = true;
             return;
         }
 
-        while(delta-- > 0 && !this.remove) {
-            this.move(0.1);
-        }
+        this.move(2);
         this.layer = this.position.y;
     },
 
