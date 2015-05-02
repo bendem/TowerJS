@@ -27,7 +27,7 @@ extend(Bullet, Entity, {
     },
 
     touches: function() {
-        return this.target.getBox().distance(this.position) <= this.radius;
+        return this.target.getBox().squaredDistance(this.position) <= square(this.radius);
     },
 
     move: function() {

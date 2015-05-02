@@ -38,7 +38,7 @@ extend(Tower, Entity, {
         var self = this;
         // Find the first in range
         return Arrays.first(monsters, function(e) {
-            return e.getBox().distance(self.getBox().getCenter()) <= self.range;
+            return e.getBox().squaredDistance(self.getBox().getCenter()) <= square(self.range);
         });
     },
 
