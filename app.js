@@ -1,10 +1,5 @@
 var SPRITE = 'assets/sprites/PlanetCute.png';
-
-// Game.debug = true;
-var game = new Game();
-var spriteBuilder = new SpriteBuilder(game.resourceManager, SPRITE).load();
-var square_dimension;
-
+var square_dimension, cols, lines;
 var gridToGlobal = function(point, offset) {
     var glob = point.scale(square_dimension);
     if(offset) {
@@ -20,19 +15,17 @@ var globalToGrid = function(point) {
     );
 };
 
+// Game.debug = true;
+var game = new Game();
+var spriteBuilder = new SpriteBuilder(game.resourceManager, SPRITE).load();
+
 game.resourceManager.ready(function() {
     var sprite = spriteBuilder.getSprite();
     var terrain_block = sprite.get('brown_block');
     square_dimension = new Vector(terrain_block.width, 83);
 
-    var cols = Math.floor(game.width / square_dimension.x);
-    var lines = Math.floor(game.height / square_dimension.y);
-
-    game
-        .setWidth(cols * square_dimension.x)
-        .setHeight(lines * square_dimension.y)
-        .setLayerCount(lines)
-        ;
+    cols = Math.floor(game.width / square_dimension.x);
+    lines = Math.floor(game.height / square_dimension.y);
 
     // Generate the map with the path
     var path = new Path(
@@ -66,11 +59,13 @@ game.resourceManager.ready(function() {
     }, sprite);
 
     game
+        .setLayerCount(lines)
         .register(new Terrain(sprite, terrain))
         .register(new Tower(sprite, new Point(2, 5), square_dimension.x / 2 * 3))
         .register(decorations)
         .register(new Monster(100, path, new Point(0, Math.floor(lines / 2)), square_dimension))
         .register(new LifeCounter(3, new Point(10, 10), 40, 10, 1))
+        .register(new Selection(path))
         ;
 
     game.start();
