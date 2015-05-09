@@ -2,41 +2,37 @@ var Terrain = function(sprite, terrain_grid) {
     this.sprite = sprite;
     this.grid = terrain_grid;
 
-    this.cols = terrain_grid.length;
-    this.lines = terrain_grid[0].length;
-
     this.grass = this.sprite.get('grass_block');
     this.dirt = this.sprite.get('dirt_block');
     this.water = this.sprite.get('water_block');
     this.path = this.sprite.get('stone_block');
 
     this.layer = 0;
+
+    var self = this;
+    game.renderer.register('tile', function(ctx, info) {
+        info.sprite.drawPart(ctx, info.spritePart, info.position);
+    });
 };
 
 extend(Terrain, Entity, {
-    draw: function(ctx) {
+    drawInfo: function() {
+        var parts = [];
         var point = new Point(0, -50);
-        for(var x = 0; x < this.cols; x++) {
-            for(var y = 0; y < this.lines; y++) {
-                switch(this.grid[x][y]) {
-                    case 'dirt':
-                        this.sprite.drawPart(ctx, this.dirt, point);
-                        break;
-                    case 'grass':
-                        this.sprite.drawPart(ctx, this.grass, point);
-                        break;
-                    case 'water':
-                        this.sprite.drawPart(ctx, this.water, point);
-                        break;
-                    case 'path':
-                        this.sprite.drawPart(ctx, this.path, point);
-                        break;
-
-                }
-                point = point.addX(square_dimension.x);
+        for(var y = 0; y < lines; y++) {
+            for(var x = 0; x < cols; x++) {
+                parts.push({
+                    name: 'tile',
+                    sprite: this.sprite,
+                    spritePart: this[this.grid[x][y]],
+                    position: point.clone(),
+                    layer: -1 - lines + y,
+                });
+                point.x += square_dimension.x;
             }
             point.x = 0;
-            point = point.addY(square_dimension.y);
+            point.y += square_dimension.y;
         }
+        return parts;
     }
 });

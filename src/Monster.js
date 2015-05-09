@@ -135,7 +135,7 @@ extend(Monster, Entity, {
         );
     },
 
-    draw: function(ctx) {
+    drawInfo: function(ctx) {
         if(this.health <= 0) {
             return;
         }
@@ -144,39 +144,34 @@ extend(Monster, Entity, {
         var centerY = this.position.y * square_dimension.y + this.positionOnSquare.y;
 
         var size = this.health / this.maxhealth * this.healthBarWidth;
+        var healthY = centerY - this.height / 2 - this.healthBarHeight - 5;
 
-        // Draw full health bar
-        ctx.beginPath();
-        ctx.fillStyle = 'rgba(0,255,0,0.8)';
-        ctx.strokeStyle = 'rgba(0,0,0,0.9)';
-        ctx.rect(
-            centerX - this.healthBarWidth / 2,
-            centerY - this.height / 2 - this.healthBarHeight - 5,
-            this.healthBarWidth, this.healthBarHeight
-        );
-        ctx.stroke();
-        ctx.fill();
+        var parts = [{
+            name: 'monster_health',
+            layer: this.layer + 0.5,
+            x: centerX - this.healthBarWidth / 2,
+            y: healthY,
+            width: this.healthBarWidth,
+            height: this.healthBarHeight,
+        }, {
+            name: 'monster_body',
+            layer: this.layer,
+            x: centerX - this.width / 2,
+            y: centerY - this.height / 2,
+            width: this.width,
+            height: this.height,
+        }];
 
-        // Draw missing health
         if(this.health < this.maxhealth) {
-            ctx.beginPath();
-            ctx.fillStyle = 'rgba(255,0,0,0.8)';
-            ctx.rect(
-                centerX - this.healthBarWidth / 2 + size,
-                centerY - this.height / 2 - this.healthBarHeight - 5,
-                this.healthBarWidth - size, this.healthBarHeight
-            );
-            ctx.fill();
+            parts.push({
+                name: 'monster_missing_health',
+                layer: this.layer + 0.6,
+                x: centerX - this.healthBarWidth / 2 + size,
+                y: healthY,
+                width: this.healthBarWidth - size,
+                height: this.healthBarHeight,
+            });
         }
-
-        // Draw the monster
-        ctx.beginPath();
-        ctx.fillStyle = 'rgba(0,0,0,0.7)';
-        ctx.rect(
-            centerX - this.width / 2,
-            centerY - this.height / 2,
-            this.width, this.height
-        );
-        ctx.fill();
+        return parts;
     },
 });

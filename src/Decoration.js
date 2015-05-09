@@ -6,11 +6,17 @@ var Decoration = function(sprite, id, pos) {
         square_dimension.x * pos.x,
         square_dimension.y * (pos.y - 1)
     );
-    this.layer = pos.y;
+    this.layer = pos.y + 0.1;
 };
 
 extend(Decoration, Entity, {
-    draw: function(ctx) {
-        this.sprite.drawPart(ctx, this.part, this.position);
-    }
+    drawInfo: function(ctx) {
+        return {
+            name: 'decoration',
+            sprite: this.sprite,
+            part: this.part,
+            position: this.position,
+            layer: this.layer
+        };
+    },
 });

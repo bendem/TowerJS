@@ -41,13 +41,12 @@ extend(Bullet, Entity, {
         this.position = this.position.add(move.setRotation(rotation));
     },
 
-    draw: function(ctx) {
-        ctx.beginPath();
-        Draw.circle(ctx, this.position, this.radius);
-        ctx.fillStyle = 'rgba(255, 100, 80, 0.9)';
-        ctx.strokeStyle = '#333';
-        ctx.lineWidth = 2;
-        ctx.fill();
-        ctx.stroke();
+    drawInfo: function() {
+        return {
+            name: 'bullet',
+            layer: this.layer + 0.5,
+            position: this.position,
+            radius: this.radius,
+        };
     }
 });

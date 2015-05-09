@@ -5,23 +5,20 @@ var LifeCounter = function(count, position, size, hPad, vPad) {
     this.hPad = hPad;
     this.vPad = vPad;
     this.layer = game.layerCount - 1;
-    game.eventManager.register('life_lost', this.dec, this);
-};
 
-extend(LifeCounter, Entity, {
-    draw: function(ctx) {
-        ctx.font = this.size + 'px sans-serif';
+    game.renderer.register('life_counter', function(ctx, info) {
+        ctx.font = info.counter.size + 'px sans-serif';
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'center';
-        var width = ctx.measureText(this.count).width;
+        var width = ctx.measureText(info.counter.count).width;
 
         ctx.fillStyle = 'rgba(0,0,0,0.5)';
         ctx.strokeStyle = '#111';
         ctx.beginPath();
         Draw.roundedRect(
             ctx,
-            this.position,
-            this.hPad * 2 + width, this.vPad * 2 + this.size,
+            info.counter.position,
+            info.counter.hPad * 2 + width, info.counter.vPad * 2 + info.counter.size,
             3
         );
         ctx.fill();
@@ -29,10 +26,22 @@ extend(LifeCounter, Entity, {
 
         ctx.fillStyle = '#eee';
         ctx.fillText(
-            this.count,
-            this.position.x + this.hPad + width / 2,
-            this.position.y + this.vPad + this.size / 2
+            info.counter.count,
+            info.counter.position.x + info.counter.hPad + width / 2,
+            info.counter.position.y + info.counter.vPad + info.counter.size / 2
         );
+    });
+
+    game.eventManager.register('life_lost', this.dec, this);
+};
+
+extend(LifeCounter, Entity, {
+    drawInfo: function(ctx) {
+        return {
+            name: 'life_counter',
+            layer: Infinity,
+            counter: this,
+        };
     },
 
     dec: function() {

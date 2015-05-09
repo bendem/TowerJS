@@ -21,22 +21,13 @@ Selection.prototype = {
         }
     },
 
-    draw: function(ctx) {
-        if(!this.selected) {
-            return;
+    drawInfo: function(ctx) {
+        if(this.selected) {
+            return {
+                name: 'selection',
+                layer: this.layer,
+                position: gridToGlobal(this.selected),
+            };
         }
-        ctx.beginPath();
-        Draw.roundedRect(
-            ctx,
-            gridToGlobal(this.selected),
-            square_dimension.x,
-            square_dimension.y,
-            6
-        );
-        ctx.strokeStyle = '#eee';
-        ctx.lineWidth = 2;
-        ctx.shadowBlur = 1;
-        ctx.shadowColor = '#111';
-        ctx.stroke();
     }
 };

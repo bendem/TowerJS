@@ -57,39 +57,26 @@ extend(Tower, Entity, {
         );
     },
 
-    draw: function(ctx) {
-        ctx.beginPath();
-        Draw.roundedRect(
-            ctx,
-            gridToGlobal(this.position, this.positionOnSquare),
-            this.width,
-            this.height,
-            5
-        );
-
-        ctx.fillStyle = 'rgba(50,50,150,0.8)';
-        ctx.fill();
-        this.blur(ctx).stroke();
+    drawInfo: function(ctx) {
+        var parts = [{
+            name: 'tower',
+            layer: this.layer,
+            position: gridToGlobal(this.position, this.positionOnSquare),
+            width: this.width,
+            height: this.height,
+        }];
 
         if(this.selected) {
-            // TODO Range should be displayed above everything else except the ui
-            ctx.beginPath();
-            Draw.circle(
-                ctx,
-                gridToGlobal(this.position, this.positionOnSquare)
+            parts.push({
+                name: 'tower_range',
+                layer: Infinity,
+                position:  gridToGlobal(this.position, this.positionOnSquare)
                     .addX(this.width / 2)
                     .addY(this.height / 2),
-                this.range
-            );
-            ctx.stroke();
+                range: this.range,
+            });
         }
-    },
 
-    blur: function(ctx) {
-        ctx.lineWidth = 3;
-        ctx.shadowBlur = 5;
-        ctx.strokeStyle = '#fff';
-        ctx.shadowColor = '#111';
-        return ctx;
-    }
+        return parts;
+    },
 });

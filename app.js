@@ -58,8 +58,9 @@ game.resourceManager.ready(function() {
         6: 'rock',
     }, sprite);
 
+    new DrawingFunctionsManager().register(game.renderer);
+
     game
-        .setLayerCount(lines)
         .register(new Terrain(sprite, terrain))
         .register(new Tower(sprite, new Point(2, 5), square_dimension.x / 2 * 3))
         .register(decorations)
