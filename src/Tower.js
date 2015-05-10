@@ -4,7 +4,7 @@ var Tower = function(sprite, pos, range) {
     this.range = range;
     this.layer = pos.y;
 
-    this.selected = true;
+    this.selected = false;
     this.cooldown = 20;
     this.lastShot = 20;
 
@@ -15,9 +15,24 @@ var Tower = function(sprite, pos, range) {
         square_dimension.x / 2 - this.width / 2,
         square_dimension.y / 2 - this.height / 2
     );
+
+    game.eventManager.register('tile_selected', this.handleSelection, this);
+    game.eventManager.register('tile_unselected', this.handleUnselection, this);
 };
 
 extend(Tower, Entity, {
+    handleSelection: function(name, position) {
+        if(this.position.equals(position)) {
+            this.selected = true;
+        }
+    },
+
+    handleUnselection: function(name, position) {
+        if(this.position.equals(position)) {
+            this.selected = false;
+        }
+    },
+
     update: function(entities) {
         var target;
         if(++this.lastShot >= this.cooldown) {

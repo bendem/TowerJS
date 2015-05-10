@@ -8,6 +8,15 @@ var Selection = function(grid) {
 Selection.prototype = {
     handleClick: function(name, arg) {
         var position = globalToGrid(arg);
+        var cancelled;
+
+        if(this.selected) {
+            cancelled = game.eventManager.handleEvent('tile_unselected', this.selected);
+            if(cancelled) {
+                return;
+            }
+        }
+
         if(Arrays2D.get(this.grid, position) !== 0) {
             this.selected = null;
             return;
@@ -16,8 +25,11 @@ Selection.prototype = {
         if(this.selected && this.selected.equals(position)) {
             this.selected = null;
         } else {
-            this.selected = position;
-            this.layer = position.y;
+            cancelled = game.eventManager.handleEvent('tile_selected', position);
+            if(!cancelled) {
+                this.selected = position;
+                this.layer = position.y;
+            }
         }
     },
 
