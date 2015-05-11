@@ -65,6 +65,7 @@ module.exports = function(grunt) {
                 browser: true,
                 laxbreak: true,
                 devel: true,
+                esnext: true,
             },
             all: ['dist/tmp.js']
         },
