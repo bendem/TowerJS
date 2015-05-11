@@ -7,8 +7,6 @@ var Terrain = function(sprite, terrain_grid) {
     this.water = this.sprite.get('water_block');
     this.path = this.sprite.get('stone_block');
 
-    this.layer = 0;
-
     var self = this;
     game.renderer.register('tile', function(ctx, info) {
         info.sprite.drawPart(ctx, info.spritePart, info.position);

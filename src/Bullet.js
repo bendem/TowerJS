@@ -3,7 +3,7 @@ var Bullet = function(target, pos) {
     this.position = pos; // global position
     this.layer = globalToGrid(this.position).y;
     this.damage = 10;
-    this.radius = 10;
+    this.radius = 7;
 };
 
 extend(Bullet, Entity, {
