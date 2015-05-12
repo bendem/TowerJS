@@ -16,7 +16,6 @@ extend(Terrain, Entity, {
             for(var x = 0; x < cols; x++) {
                 parts.push({
                     name: 'tile',
-                    sprite: this.sprite,
                     spritePart: this[this.grid[x][y]],
                     position: point.clone(),
                     layer: -1 - lines + y,

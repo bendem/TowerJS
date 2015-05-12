@@ -13,7 +13,6 @@ extend(Decoration, Entity, {
     drawInfo: function(ctx) {
         return {
             name: 'decoration',
-            sprite: this.sprite,
             part: this.part,
             position: this.position,
             layer: this.layer

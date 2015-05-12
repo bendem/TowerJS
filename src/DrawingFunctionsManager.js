@@ -8,18 +8,19 @@ DrawingFunctionsManager.prototype = {
         this.registerMonster(renderer);
         this.registerTower(renderer);
         this.registerBullet(renderer);
+        this.registerLifeCounter(renderer);
         this.registerSelection(renderer);
     },
 
     registerTile: function(renderer) {
         renderer.register('tile', function(ctx, info) {
-            info.sprite.drawPart(ctx, info.spritePart, info.position);
+            info.spritePart.draw(ctx, info.position);
         });
     },
 
     registerDecoration: function(renderer) {
         game.renderer.register('decoration', function(ctx, info) {
-            info.sprite.drawPart(ctx, info.part, info.position);
+            info.part.draw(ctx, info.position);
         });
     },
 
@@ -84,6 +85,34 @@ DrawingFunctionsManager.prototype = {
             ctx.lineWidth = 2;
             ctx.strokeStyle = '#333';
             ctx.stroke();
+        });
+    },
+
+    registerLifeCounter: function(renderer) {
+        renderer.register('life_counter', function(ctx, info) {
+            ctx.font = info.counter.size + 'px sans-serif';
+            ctx.textBaseline = 'middle';
+            ctx.textAlign = 'center';
+            var width = ctx.measureText(info.counter.count).width;
+
+            ctx.fillStyle = 'rgba(0,0,0,0.5)';
+            ctx.strokeStyle = '#111';
+            ctx.beginPath();
+            Draw.roundedRect(
+                ctx,
+                info.counter.position,
+                info.counter.hPad * 2 + width, info.counter.vPad * 2 + info.counter.size,
+                3
+            );
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#eee';
+            ctx.fillText(
+                info.counter.count,
+                info.counter.position.x + info.counter.hPad + width / 2,
+                info.counter.position.y + info.counter.vPad + info.counter.size / 2
+            );
         });
     },
 
