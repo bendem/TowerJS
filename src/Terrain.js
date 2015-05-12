@@ -6,11 +6,6 @@ var Terrain = function(sprite, terrain_grid) {
     this.dirt = this.sprite.get('dirt_block');
     this.water = this.sprite.get('water_block');
     this.path = this.sprite.get('stone_block');
-
-    var self = this;
-    game.renderer.register('tile', function(ctx, info) {
-        info.sprite.drawPart(ctx, info.spritePart, info.position);
-    });
 };
 
 extend(Terrain, Entity, {

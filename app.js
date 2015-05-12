@@ -27,6 +27,9 @@ game.resourceManager.ready(function() {
     cols = Math.floor(game.width / square_dimension.x);
     lines = Math.floor(game.height / square_dimension.y);
 
+    assert(cols > 0 && cols < Infinity);
+    assert(lines > 0 && lines < Infinity);
+
     // Generate the map with the path
     var path = new Path(
         cols, lines,
