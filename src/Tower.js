@@ -20,7 +20,7 @@ var Tower = function(sprite, pos, range) {
     game.eventManager.register('tile_unselected', this.handleUnselection, this);
 };
 
-extend(Tower, Entity, {
+Tower.prototype = {
     handleSelection: function(name, position) {
         if(this.position.equals(position)) {
             this.selected = true;
@@ -51,7 +51,7 @@ extend(Tower, Entity, {
         var self = this;
         // Find the first in range
         return Arrays.first(monsters, function(e) {
-            return e.getBox().squaredDistance(self.getBox().getCenter()) <= square(self.range);
+            return e.getBox().squaredDistance(self.getBox().getCenter()) <= Utils.square(self.range);
         });
     },
 
@@ -94,4 +94,4 @@ extend(Tower, Entity, {
 
         return parts;
     },
-});
+};

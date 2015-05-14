@@ -6,7 +6,7 @@ var Bullet = function(target, pos) {
     this.radius = 7;
 };
 
-extend(Bullet, Entity, {
+Bullet.prototype = {
     update: function() {
         // Don't let bullets without target running around
         // TODO Maybe they should find a new target?
@@ -29,7 +29,7 @@ extend(Bullet, Entity, {
     },
 
     touches: function() {
-        return this.target.getBox().squaredDistance(this.position) <= square(this.radius);
+        return this.target.getBox().squaredDistance(this.position) <= Utils.square(this.radius);
     },
 
     move: function() {
@@ -49,4 +49,4 @@ extend(Bullet, Entity, {
             radius: this.radius,
         };
     }
-});
+};

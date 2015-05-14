@@ -9,7 +9,7 @@ var LifeCounter = function(count, position, size, hPad, vPad) {
     game.eventManager.register('life_lost', this.dec, this);
 };
 
-extend(LifeCounter, Entity, {
+LifeCounter.prototype = {
     drawInfo: function(ctx) {
         return {
             name: 'life_counter',
@@ -23,4 +23,4 @@ extend(LifeCounter, Entity, {
             game.eventManager.handleEvent('game_lost');
         }
     },
-});
+};

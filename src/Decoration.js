@@ -9,7 +9,7 @@ var Decoration = function(sprite, id, pos) {
     this.layer = pos.y + 0.1;
 };
 
-extend(Decoration, Entity, {
+Decoration.prototype = {
     drawInfo: function(ctx) {
         return {
             name: 'decoration',
@@ -18,4 +18,4 @@ extend(Decoration, Entity, {
             layer: this.layer
         };
     },
-});
+};

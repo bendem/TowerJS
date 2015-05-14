@@ -11,8 +11,8 @@ GameDecorator.prototype = {
         positionTranslation = positionTranslation || new Vector(0, 0);
 
         for(i = 0; i < count; i++) {
-            pos.x = randomInt(0, cols);
-            pos.y = randomInt(1, lines - 1);
+            pos.x = Utils.randomInt(0, cols);
+            pos.y = Utils.randomInt(1, lines - 1);
             pos = pos.add(positionTranslation);
             current = Arrays2D.get(this.path, pos);
             if(current === 0) {

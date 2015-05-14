@@ -14,7 +14,7 @@ var Monster = function(health, map, pos) {
     this.healthBarHeight = 5;
 };
 
-extend(Monster, Entity, {
+Monster.prototype = {
     update: function() {
         if(this.health <= 0) {
             this.remove = true;
@@ -31,7 +31,7 @@ extend(Monster, Entity, {
         if(this.position.x >= this.map.length - 1 && this.direction == Direction.Right) {
             sameDirection = false;
         } else {
-            sameDirection = isOneOf(Arrays2D.get(
+            sameDirection = Utils.isOneOf(Arrays2D.get(
                 this.map,
                 this.applyDirection(this.position, this.direction)
             ), 1, 2);
@@ -115,11 +115,11 @@ extend(Monster, Entity, {
 
     checkDirection: function() {
         if(this.direction !== Direction.Up
-                && isOneOf(Arrays2D.get(this.map, this.position.addY(1)), 1, 2)) {
+                && Utils.isOneOf(Arrays2D.get(this.map, this.position.addY(1)), 1, 2)) {
             return Direction.Down;
         }
         if(this.direction !== Direction.Down
-                && isOneOf(Arrays2D.get(this.map, this.position.addY(-1)), 1, 2)) {
+                && Utils.isOneOf(Arrays2D.get(this.map, this.position.addY(-1)), 1, 2)) {
             return Direction.Up;
         }
         return Direction.Right;
@@ -174,4 +174,4 @@ extend(Monster, Entity, {
         }
         return parts;
     },
-});
+};

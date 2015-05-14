@@ -8,7 +8,7 @@ var Terrain = function(sprite, terrain_grid) {
     this.path = this.sprite.get('stone_block');
 };
 
-extend(Terrain, Entity, {
+Terrain.prototype = {
     drawInfo: function() {
         var parts = [];
         var point = new Point(0, -50);
@@ -27,4 +27,4 @@ extend(Terrain, Entity, {
         }
         return parts;
     }
-});
+};
