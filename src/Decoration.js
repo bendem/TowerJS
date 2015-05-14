@@ -7,15 +7,16 @@ var Decoration = function(sprite, id, pos) {
         square_dimension.y * (pos.y - 1)
     );
     this.layer = pos.y + 0.1;
+    this.info = {
+        name: 'decoration',
+        part: this.part,
+        position: this.position,
+        layer: this.layer
+    };
 };
 
 Decoration.prototype = {
     drawInfo: function(ctx) {
-        return {
-            name: 'decoration',
-            part: this.part,
-            position: this.position,
-            layer: this.layer
-        };
+        return this.info;
     },
 };

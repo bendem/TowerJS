@@ -4,6 +4,7 @@ var Bullet = function(target, pos) {
     this.layer = globalToGrid(this.position).y;
     this.damage = 10;
     this.radius = 7;
+    this.velocity = new Vector(3, 3);
 };
 
 Bullet.prototype = {
@@ -33,12 +34,11 @@ Bullet.prototype = {
     },
 
     move: function() {
-        var move = new Vector(3, 3);
         var rotation = gridToGlobal(
             this.target.position,
             this.target.positionOnSquare
         ).getAngle(this.position);
-        this.position = this.position.add(move.setRotation(rotation));
+        this.position = this.position.add(this.velocity.setRotation(rotation));
     },
 
     drawInfo: function() {
